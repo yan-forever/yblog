@@ -1,4 +1,4 @@
-.clang-format
+backend/.clang-format
 .idea/
 .vscode/
 .DS_Store

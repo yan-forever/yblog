@@ -8,11 +8,7 @@ find_package(Drogon CONFIG REQUIRED)
 # 添加源文件
 set(SRC_FILES
         main.cpp
-        models/Posts.cc
-        models/PostTags.cc
-        models/Tags.cc
-        models/Users.cc
-        controllers/api_v1_PostController.cc
+        controllers/api_v1_ArticleController.cc
 )
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/models)
 add_executable(${PROJECT_NAME} ${SRC_FILES})
