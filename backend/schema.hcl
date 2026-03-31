@@ -8,7 +8,7 @@ table "article" {
   schema = schema.yblog
   column "id" {
     null  = false
-    type  = bigint
+    type  = int
     auto_increment  = true
   }
   column "title" {

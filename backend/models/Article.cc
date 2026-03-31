@@ -23,7 +23,7 @@ const bool Article::hasPrimaryKey = true;
 const std::string Article::tableName = "article";
 
 const std::vector<typename Article::MetaData> Article::metaData_={
-{"id","int64_t","bigint(20)",8,1,1,1},
+{"id","int32_t","int(11)",4,1,1,1},
 {"title","std::string","varchar(255)",255,0,0,1},
 {"content","std::string","text",0,0,0,1},
 {"created_at","::trantor::Date","timestamp",0,0,0,1},
@@ -40,7 +40,7 @@ Article::Article(const Row &r, const ssize_t indexOffset) noexcept
     {
         if(!r["id"].isNull())
         {
-            id_=std::make_shared<int64_t>(r["id"].as<int64_t>());
+            id_=std::make_shared<int32_t>(r["id"].as<int32_t>());
         }
         if(!r["title"].isNull())
         {
@@ -107,7 +107,7 @@ Article::Article(const Row &r, const ssize_t indexOffset) noexcept
         index = offset + 0;
         if(!r[index].isNull())
         {
-            id_=std::make_shared<int64_t>(r[index].as<int64_t>());
+            id_=std::make_shared<int32_t>(r[index].as<int32_t>());
         }
         index = offset + 1;
         if(!r[index].isNull())
@@ -181,7 +181,7 @@ Article::Article(const Json::Value &pJson, const std::vector<std::string> &pMasq
         dirtyFlag_[0] = true;
         if(!pJson[pMasqueradingVector[0]].isNull())
         {
-            id_=std::make_shared<int64_t>((int64_t)pJson[pMasqueradingVector[0]].asInt64());
+            id_=std::make_shared<int32_t>((int32_t)pJson[pMasqueradingVector[0]].asInt64());
         }
     }
     if(!pMasqueradingVector[1].empty() && pJson.isMember(pMasqueradingVector[1]))
@@ -261,7 +261,7 @@ Article::Article(const Json::Value &pJson) noexcept(false)
         dirtyFlag_[0]=true;
         if(!pJson["id"].isNull())
         {
-            id_=std::make_shared<int64_t>((int64_t)pJson["id"].asInt64());
+            id_=std::make_shared<int32_t>((int32_t)pJson["id"].asInt64());
         }
     }
     if(pJson.isMember("title"))
@@ -346,7 +346,7 @@ void Article::updateByMasqueradedJson(const Json::Value &pJson,
     {
         if(!pJson[pMasqueradingVector[0]].isNull())
         {
-            id_=std::make_shared<int64_t>((int64_t)pJson[pMasqueradingVector[0]].asInt64());
+            id_=std::make_shared<int32_t>((int32_t)pJson[pMasqueradingVector[0]].asInt64());
         }
     }
     if(!pMasqueradingVector[1].empty() && pJson.isMember(pMasqueradingVector[1]))
@@ -425,7 +425,7 @@ void Article::updateByJson(const Json::Value &pJson) noexcept(false)
     {
         if(!pJson["id"].isNull())
         {
-            id_=std::make_shared<int64_t>((int64_t)pJson["id"].asInt64());
+            id_=std::make_shared<int32_t>((int32_t)pJson["id"].asInt64());
         }
     }
     if(pJson.isMember("title"))
@@ -498,20 +498,20 @@ void Article::updateByJson(const Json::Value &pJson) noexcept(false)
     }
 }
 
-const int64_t &Article::getValueOfId() const noexcept
+const int32_t &Article::getValueOfId() const noexcept
 {
-    static const int64_t defaultValue = int64_t();
+    static const int32_t defaultValue = int32_t();
     if(id_)
         return *id_;
     return defaultValue;
 }
-const std::shared_ptr<int64_t> &Article::getId() const noexcept
+const std::shared_ptr<int32_t> &Article::getId() const noexcept
 {
     return id_;
 }
-void Article::setId(const int64_t &pId) noexcept
+void Article::setId(const int32_t &pId) noexcept
 {
-    id_ = std::make_shared<int64_t>(pId);
+    id_ = std::make_shared<int32_t>(pId);
     dirtyFlag_[0] = true;
 }
 const typename Article::PrimaryKeyType & Article::getPrimaryKey() const
@@ -600,7 +600,7 @@ void Article::setUpdatedAt(const ::trantor::Date &pUpdatedAt) noexcept
 
 void Article::updateId(const uint64_t id)
 {
-    id_ = std::make_shared<int64_t>(static_cast<int64_t>(id));
+    id_ = std::make_shared<int32_t>(static_cast<int32_t>(id));
 }
 
 const std::vector<std::string> &Article::insertColumns() noexcept
@@ -736,7 +736,7 @@ Json::Value Article::toJson() const
     Json::Value ret;
     if(getId())
     {
-        ret["id"]=(Json::Int64)getValueOfId();
+        ret["id"]=getValueOfId();
     }
     else
     {
@@ -792,7 +792,7 @@ Json::Value Article::toMasqueradedJson(
         {
             if(getId())
             {
-                ret[pMasqueradingVector[0]]=(Json::Int64)getValueOfId();
+                ret[pMasqueradingVector[0]]=getValueOfId();
             }
             else
             {
@@ -848,7 +848,7 @@ Json::Value Article::toMasqueradedJson(
     LOG_ERROR << "Masquerade failed";
     if(getId())
     {
-        ret["id"]=(Json::Int64)getValueOfId();
+        ret["id"]=getValueOfId();
     }
     else
     {
@@ -1097,7 +1097,7 @@ bool Article::validJsonOfField(size_t index,
                 err="The automatic primary key cannot be set";
                 return false;
             }
-            if(!pJson.isInt64())
+            if(!pJson.isInt())
             {
                 err="Type error in the "+fieldName+" field";
                 return false;

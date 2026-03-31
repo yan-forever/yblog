@@ -55,7 +55,7 @@ class Article
     static const std::string tableName;
     static const bool hasPrimaryKey;
     static const std::string primaryKeyName;
-    using PrimaryKeyType = int64_t;
+    using PrimaryKeyType = int32_t;
     const PrimaryKeyType &getPrimaryKey() const;
 
     /**
@@ -102,11 +102,11 @@ class Article
 
     /**  For column id  */
     ///Get the value of the column id, returns the default value if the column is null
-    const int64_t &getValueOfId() const noexcept;
+    const int32_t &getValueOfId() const noexcept;
     ///Return a shared_ptr object pointing to the column const value, or an empty shared_ptr object if the column is null
-    const std::shared_ptr<int64_t> &getId() const noexcept;
+    const std::shared_ptr<int32_t> &getId() const noexcept;
     ///Set the value of the column id
-    void setId(const int64_t &pId) noexcept;
+    void setId(const int32_t &pId) noexcept;
 
     /**  For column title  */
     ///Get the value of the column title, returns the default value if the column is null
@@ -165,7 +165,7 @@ class Article
     void updateArgs(drogon::orm::internal::SqlBinder &binder) const;
     ///For mysql or sqlite3
     void updateId(const uint64_t id);
-    std::shared_ptr<int64_t> id_;
+    std::shared_ptr<int32_t> id_;
     std::shared_ptr<std::string> title_;
     std::shared_ptr<std::string> content_;
     std::shared_ptr<::trantor::Date> createdAt_;

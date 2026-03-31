@@ -8,5 +8,9 @@ build/
 yblog
 /uploads/
 /models/model.json
-/config.json
+/configold.json
 /atlas.hcl
+config.yaml
+/logs/
+/drogon.wiki/
+xmake.lua

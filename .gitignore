@@ -3,3 +3,6 @@ backend/.clang-format
 .vscode/
 .DS_Store
 Thumbs.db
+/backend/drogon.wiki/
+/node_modules/
+/.claude/
